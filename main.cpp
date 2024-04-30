@@ -11,87 +11,55 @@ private:
     float monto_arriendo;
     string nombre_local;
 public:
+    //constructor default
     Local(){}
-    void Local2(int superficie_, string tipo_local_, string nombre_local_) {//constructor
-        superficie = superficie_;
-        tipo_local = tipo_local_;
-        string nombre_local = nombre_local_;
-        ///*monto_arriendo =calcularArriendo(superficie, tipoINT);*/
-    }
-    //al indicar superficie en m2 del local y su nombre, se debe especificar el tipo de local antes de usar el constructor.
+    //destructor
     ~Local() {}
-        //definir setters
-    void setSuperficie(int superficie_){
-        this->superficie=superficie_;
-    }
-    /*void setTipolocal(string tipo_local_){ // no necesario en este caso, placeholder.
-        this->tipo_local=tipo_local_;
-    }*/
-    void setTipolocal(int tipoINT){ // falta la logica para utilizar esta función y utilizar la variable
-        if (tipoINT==1)         // int usado en el menu de creacion de objeto
+        //Setters
+    void setSuperficie(int superficie_){ this->superficie=superficie_;}                 //superficie
+    void setTipolocal(int tipoINT){                                                     //tipo local
+        if (tipoINT==1)         // int usado en el menu de creacion de objeto  
             this->tipo_local="oficina";
         if (tipoINT==2)
             this->tipo_local="local comercial";
+        
     }
-    void setNombrelocal(string nombre_local_){
-        this->nombre_local=nombre_local_;
-    }
-    void setMontoarriendo(int monto_arriendo_){
-        this->monto_arriendo=monto_arriendo_;
-    }
-        //definir getters
-    int getsuperficie(){
-        return superficie;
-    }
-    string getTipolocal(){
-        return this->tipo_local;
-    }
-    string getNombrelocal(){
-        return this->nombre_local;
-    }
-    float getMontoarriendo(){
-        return this->monto_arriendo;
-    }
+    void setNombrelocal(string nombre_local_){ this->nombre_local=nombre_local_;}       // nombre de local
+    void setMontoarriendo(int monto_arriendo_){ this->monto_arriendo=monto_arriendo_;}  //monto de arriendo
+        
+        //Getters
+    int getsuperficie(){return superficie;}                 //superficie
+    string getTipolocal(){return this->tipo_local;}         //Tipo local
+    string getNombrelocal(){return this->nombre_local;}     // nombre de local
+    float getMontoarriendo(){return this->monto_arriendo;}  //monto de arriendo
+   
+        //Visualizador
     void ver(){
         cout<<"nombre local: "<<nombre_local<<endl;
         cout<<"tipo de local: "<<tipo_local<<endl;
         cout<<"superficie en m2 del local: "<<superficie<<endl;
         cout<<"Monto en uf a pagar por arriendo: "<<monto_arriendo<<endl;
-        if(tipoINT=1){// oficina
+        if(tipo_local=="oficina"){
         cout<<"se aplico tarifa de oficina, 0.5UF por m2."<<endl;
         }
-        else if (tipoINT=2){// local comercial
+        else if(tipo_local=="local comercial"){
         cout<<"se aplico tarifa de local comercial, 0.65UF por m2."<<endl;
         }
         
     }
     void calcularArriendomiembro(int tipoINT) { // funcion miembro
         // 0.5 uf/m2 para oficinas, 0.65 uf/m2 para locales comerciales
-        cout<<"la superficie es de:"<<superficie<<"y el tipo de local es"<<tipo_local<<endl;
-        if(tipoINT=1){// oficina
-        float precio=superficie*0.5;
+        float superf=superficie;
+        if(tipo_local=="oficina"){
+            float precio=superf*0.5;
         setMontoarriendo(precio);
-            //this->monto_arriendo=this->superficie*0,5;
         }
-        else if (tipoINT=2){// local comercial
-        float precio=superficie*0.65;
+        if(tipo_local=="local comercial"){
+            float precio=superf*0.65;
         setMontoarriendo(precio);
-            //this->monto_arriendo=this->superficie*0,65;
         }
     }
 };
-float calcularArriendo(int superficie, int tipoINT) { // funcion miembro
-        // 0.5 uf/m2 para oficinas, 0.65 uf/m2 para locales comerciales
-        int precio_calculado=0;
-        
-        if(tipoINT=1){// oficina
-            precio_calculado=superficie*0,5;
-        }
-        else if (tipoINT=2){// local comercial
-            precio_calculado=superficie*0,65;
-        }
-        return precio_calculado;
-    }
 void checktipoINT(){
 if(tipoINT>2 || tipoINT<1){
     cout<<"Opción indicada es incorrecta, usted digito "<<tipoINT<<" y se esperaba 1 o 2."<<endl;
@@ -119,22 +87,20 @@ void crearLocal(){
     int locsuperficie;
     cin.clear();
     cin>>locsuperficie;
-    cout<<locsuperficie<<endl;
     Local L;
     L.setNombrelocal(locnombre);
     L.setTipolocal(tipoINT);
     L.setSuperficie(locsuperficie);
     L.calcularArriendomiembro(tipoINT);
-    //L.setMontoarriendo(calcularArriendo(locsuperficie, tipoINT));
     L.ver();
     }
-void HandleChoice(int opcion){// falta logica 
+void HandleChoice(int opcion){
     switch (opcion){
         case 1:
-            crearLocal();    // llamado a funcion de crearobjeto
+            crearLocal();
             break;
         case 0:
-        exit(0);// puede que este bien o no que esto se encuentre aquí, hay una condicion en main para case 0.
+        exit(0);
         default:
             cout<<"opcion incorrecta, intente nuevamente."<<endl;
             break;
